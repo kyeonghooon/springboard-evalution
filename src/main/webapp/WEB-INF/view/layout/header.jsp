@@ -19,7 +19,7 @@
 		<div class="m--container">
 
 			<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-				<a class="navbar-brand" href="/index">홈</a>
+				<a class="navbar-brand" href="/">홈</a>
 				<a class="navbar-brand" href="/board/saveForm">글쓰기</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 					<span class="navbar-toggler-icon"></span>

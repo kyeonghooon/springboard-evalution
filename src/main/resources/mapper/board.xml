@@ -5,7 +5,7 @@
 
 	<!-- 반드시 세미콜론을 제거 해야 한다. -->
 	<!-- id는 매칭되어 있는 인터페이스에 메서드 명과 같아야 한다. -->
-	<insert id="creat">
+	<insert id="create">
 		insert into board (title, content, author)
 		values(#{title}, #{content}, #{author})
 	</insert>

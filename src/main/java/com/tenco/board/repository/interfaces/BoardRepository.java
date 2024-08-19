@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.tenco.board.dto.BoardDTO;
 import com.tenco.board.repository.model.Board;
 
 @Mapper
@@ -11,7 +12,7 @@ public interface BoardRepository {
 	
 	List<Board> readAll();
 	Board readById();
-	void creat(Board board);
-	void update(Board board);
-	void deleteById(int id);
+	int create(BoardDTO dto);
+	int update(BoardDTO dto);
+	int deleteById(int id);
 }
