@@ -24,6 +24,11 @@ public class BoardController {
 
 	private final BoardService boardService;
 
+	/**
+	 * 게시글 목록 페이지 호출
+	 * @param page : 현재 페이지
+	 * @param size : 한 페이지당 게시글 수
+	 */
 	@GetMapping("/")
 	public String index(Model model,//
 			@RequestParam(defaultValue = "0", name = "page") int page,//
@@ -46,11 +51,17 @@ public class BoardController {
 		return "index";
 	}
 
+	/**
+	 * 게시글 작성 페이지 호출
+	 */
 	@GetMapping("/board/saveForm")
 	public String saveForm() {
 		return "board/saveForm";
 	}
 
+	/**
+	 * 게시글 수정 페이지 호출
+	 */
 	@GetMapping("/board/{id}/updateForm")
 	public String updateForm(@PathVariable(name = "id") Integer id, Model model) {
 		Board board = boardService.readById(id);
@@ -58,6 +69,9 @@ public class BoardController {
 		return "board/updateForm";
 	}
 
+	/**
+	 * 게시글 생성 처리
+	 */
 	@PostMapping("/board/save")
 	public String save(BoardDTO dto) {
 		// 유효성 검사
@@ -107,6 +121,9 @@ public class BoardController {
 		return "redirect:/";
 	}
 
+	/**
+	 * 게시글 수정 처리
+	 */
 	@PostMapping("/board/{id}/delete")
 	public String delete(@PathVariable(name = "id") Integer id) {
 		boardService.deleteById(id);

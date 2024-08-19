@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tenco.board.dto.BoardDTO;
 import com.tenco.board.handler.exception.DataDeliveryException;
@@ -44,6 +45,7 @@ public class BoardService {
 	 * 
 	 * @param id
 	 */
+	@Transactional
 	public void deleteById(int id) {
 		boardRepository.deleteById(id);
 	}
@@ -53,6 +55,7 @@ public class BoardService {
 	 * 
 	 * @param dto
 	 */
+	@Transactional
 	public void create(BoardDTO dto) {
 		int result = 0;
 		try {
@@ -90,6 +93,7 @@ public class BoardService {
 	 * @param dto
 	 * @param id
 	 */
+	@Transactional
 	public void update(BoardDTO dto, int id) {
 		int result = 0;
 		try {
