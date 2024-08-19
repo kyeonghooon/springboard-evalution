@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+body {
+	height: 100%;
+	margin: 0;
+}
+
+.m-flex-container {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+.m--container {
+  flex: 1;
+}
