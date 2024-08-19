@@ -36,7 +36,9 @@ public class BoardController {
     }
 
     @GetMapping("/board/{id}/updateForm")
-    public String updateForm(@PathVariable int id) {
+    public String updateForm(@PathVariable(name="id") Integer id, Model model) {
+    	Board board = boardService.readById(id);
+    	model.addAttribute("board", board);
         return "board/updateForm";
     }
 
@@ -66,7 +68,26 @@ public class BoardController {
     }
 
     @PostMapping("/board/{id}/update")
-    public String update(@PathVariable(name="id") Integer id){
+    public String update(BoardDTO dto, @PathVariable(name="id") Integer id){
+    	if (dto.getTitle() == null || dto.getTitle().trim().isEmpty()) {
+			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
+		}
+    	if (dto.getContent() == null || dto.getContent().trim().isEmpty()) {
+			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
+		}
+    	if (dto.getAuthor() == null || dto.getAuthor().trim().isEmpty()) {
+			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
+		}
+    	if (dto.getAuthor().length() > Define.MAX_TITLE) {
+    		throw new DataDeliveryException(Define.OVER_OF_TITLE_LENGTH, HttpStatus.BAD_REQUEST);
+    	}
+    	if (dto.getAuthor().length() > Define.MAX_CONTENT) {
+    		throw new DataDeliveryException(Define.OVER_OF_CONTENT_LENGTH, HttpStatus.BAD_REQUEST);
+    	}
+    	if (dto.getAuthor().length() > Define.MAX_AUTHOR) {
+    		throw new DataDeliveryException(Define.OVER_OF_AUTHOR_LENGTH, HttpStatus.BAD_REQUEST);
+    	}
+    	boardService.update(dto, id);
         return "redirect:/";
     }
 

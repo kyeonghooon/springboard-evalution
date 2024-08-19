@@ -10,8 +10,8 @@
 		values(#{title}, #{content}, #{author})
 	</insert>
 	<update id="update">
-		update board set title = #{title}, content = #{content},
-		author = #{author} where id = #{id}
+		update board set title = #{board.title}, content = #{board.content},
+		author = #{board.author} where id = #{id}
 	</update>
 
 	<delete id="deleteById">

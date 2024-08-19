@@ -21,7 +21,6 @@ public class CustomErrorController implements ErrorController {
 		Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 		if (status != null) {
 			Integer statusCode = Integer.valueOf(status.toString());
-			System.out.println("dsfdsf");
 			if (statusCode == HttpStatus.NOT_FOUND.value()) {
 				// 404 코드라면
 				throw new RedirectException("잘못된 요청입니다.", HttpStatus.NOT_FOUND);

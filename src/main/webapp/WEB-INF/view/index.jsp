@@ -30,9 +30,7 @@
 								<form action="/board/${board.id}/delete" method="post">
 									<button type="submit" class="btn btn-danger">삭제</button>
 								</form>
-								<form action="/board/${board.id}/update" method="post">
-									<button type="submit" class="btn btn-warning">수정</button>
-								</form>
+								<a href="/board/${board.id}/updateForm" class="btn btn-warning">수정</a>
 							</td>
 						</tr>
 					</c:forEach>

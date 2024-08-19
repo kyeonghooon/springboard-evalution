@@ -2,6 +2,7 @@ package com.tenco.board.service;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,15 @@ public class BoardService {
 	 * @return
 	 */
 	public List<Board> readAll() {
-		List<Board> boardList = null;
-		boardList = boardRepository.readAll();
-		return boardList;
+		List<Board> boardListEntity = null;
+		try {
+			boardListEntity = boardRepository.readAll();
+		} catch (DataAccessException e) {
+			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			throw new RedirectException(Define.UNKNOWN, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+		return boardListEntity;
 	}
 
 	/**
@@ -40,6 +47,11 @@ public class BoardService {
 		boardRepository.deleteById(id);
 	}
 
+	/**
+	 * 게시글 작성
+	 * 
+	 * @param dto
+	 */
 	public void create(BoardDTO dto) {
 		int result = 0;
 		try {
@@ -51,5 +63,36 @@ public class BoardService {
 			throw new DataDeliveryException(Define.FAIL_TO_CREATE_BOARD, HttpStatus.BAD_REQUEST);
 		}
 	}
-
+	
+	/**
+	 * 게시글 수정을 위한 조회
+	 * @param id
+	 * @return
+	 */
+	public Board readById(int id) {
+		Board boardEntity = null;
+		try {
+			boardEntity = boardRepository.readById(id);
+		} catch (DataAccessException e) {
+			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			throw new RedirectException(Define.UNKNOWN, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+		if (boardEntity == null) {
+			throw new DataDeliveryException(Define.FAILED_ACCESS, HttpStatus.BAD_REQUEST);
+		}
+		return boardEntity;
+	}
+	
+	public void update(BoardDTO dto, int id) {
+		int result = 0;
+		try {
+			result = boardRepository.update(dto, id);
+		} catch (Exception e) {
+			throw new RedirectException(Define.UNKNOWN, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+		if (result == 0) {
+			throw new DataDeliveryException(Define.FAIL_TO_CREATE_BOARD, HttpStatus.BAD_REQUEST);
+		}
+	}
 }
