@@ -64,11 +64,11 @@ public class BoardController {
 		if (dto.getTitle() == null || dto.getTitle().trim().isEmpty()) {
 			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
 		}
-		if (dto.getContent() == null || dto.getContent().trim().isEmpty()) {
-			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
+		if (dto.getContent() == null) {
+			throw new DataDeliveryException(Define.ENTER_CONTENT, HttpStatus.BAD_REQUEST);
 		}
 		if (dto.getAuthor() == null || dto.getAuthor().trim().isEmpty()) {
-			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
+			throw new DataDeliveryException(Define.ENTER_AUTHOR, HttpStatus.BAD_REQUEST);
 		}
 		if (dto.getTitle().length() > Define.MAX_TITLE) {
 			throw new DataDeliveryException(Define.OVER_OF_TITLE_LENGTH, HttpStatus.BAD_REQUEST);
@@ -88,11 +88,11 @@ public class BoardController {
 		if (dto.getTitle() == null || dto.getTitle().trim().isEmpty()) {
 			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
 		}
-		if (dto.getContent() == null || dto.getContent().trim().isEmpty()) {
-			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
+		if (dto.getContent() == null) {
+			throw new DataDeliveryException(Define.ENTER_CONTENT, HttpStatus.BAD_REQUEST);
 		}
 		if (dto.getAuthor() == null || dto.getAuthor().trim().isEmpty()) {
-			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
+			throw new DataDeliveryException(Define.ENTER_AUTHOR, HttpStatus.BAD_REQUEST);
 		}
 		if (dto.getTitle().length() > Define.MAX_TITLE) {
 			throw new DataDeliveryException(Define.OVER_OF_TITLE_LENGTH, HttpStatus.BAD_REQUEST);
