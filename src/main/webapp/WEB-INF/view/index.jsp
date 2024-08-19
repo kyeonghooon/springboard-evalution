@@ -1,37 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!-- header.jsp -->
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
-<style>
-.table--custom {
-	width: 100%; /* 테이블 전체 너비를 100%로 설정 */
-	table-layout: fixed; /* 고정된 테이블 레이아웃을 사용 */
-}
-
-.table--custom th:nth-child(1), .table--custom td:nth-child(1) {
-	width: 8%; /* 번호 열의 너비 설정 */
-}
-
-.table--custom th:nth-child(2), .table--custom td:nth-child(2) {
-	width: 30%; /* 제목 열의 너비 설정 */
-}
-
-.table--custom th:nth-child(3), .table--custom td:nth-child(3) {
-	width: 30%; /* 내용 열의 너비 설정 */
-}
-
-.table--custom th:nth-child(4), .table--custom td:nth-child(4) {
-	width: 15%; /* 작성자 열의 너비 설정 */
-}
-
-.table--custom th:nth-child(5), .table--custom td:nth-child(5) {
-	width: 15%; /* 버튼 열의 너비 설정 */
-}
-</style>
-<!-- start of context.jsp(xxx.jsp) -->
 <div class="container p-5">
 	<c:choose>
 		<c:when test="${boardList != null}">
-			<%-- 계좌 존재 : html 주석을 사용하면 오류 발생 (jstl 태그 안에서) --%>
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -84,5 +55,4 @@
 	</c:choose>
 
 </div>
-<!-- end of context.jsp(xxx.jsp) -->
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
