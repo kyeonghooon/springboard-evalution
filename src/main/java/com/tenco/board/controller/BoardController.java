@@ -54,10 +54,10 @@ public class BoardController {
     	if (dto.getAuthor() == null || dto.getAuthor().trim().isEmpty()) {
 			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
 		}
-    	if (dto.getAuthor().length() > Define.MAX_TITLE) {
+    	if (dto.getTitle().length() > Define.MAX_TITLE) {
     		throw new DataDeliveryException(Define.OVER_OF_TITLE_LENGTH, HttpStatus.BAD_REQUEST);
     	}
-    	if (dto.getAuthor().length() > Define.MAX_CONTENT) {
+    	if (dto.getContent().length() > Define.MAX_CONTENT) {
     		throw new DataDeliveryException(Define.OVER_OF_CONTENT_LENGTH, HttpStatus.BAD_REQUEST);
     	}
     	if (dto.getAuthor().length() > Define.MAX_AUTHOR) {
@@ -78,10 +78,10 @@ public class BoardController {
     	if (dto.getAuthor() == null || dto.getAuthor().trim().isEmpty()) {
 			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
 		}
-    	if (dto.getAuthor().length() > Define.MAX_TITLE) {
+    	if (dto.getTitle().length() > Define.MAX_TITLE) {
     		throw new DataDeliveryException(Define.OVER_OF_TITLE_LENGTH, HttpStatus.BAD_REQUEST);
     	}
-    	if (dto.getAuthor().length() > Define.MAX_CONTENT) {
+    	if (dto.getContent().length() > Define.MAX_CONTENT) {
     		throw new DataDeliveryException(Define.OVER_OF_CONTENT_LENGTH, HttpStatus.BAD_REQUEST);
     	}
     	if (dto.getAuthor().length() > Define.MAX_AUTHOR) {
