@@ -26,5 +26,5 @@
 				</button>
 			</nav>
 
-			<div class="container d-flex justify-content-center" style="margin-top: 30px">
+			<div class="container" style="margin-top: 30px">
 				<div class="row">

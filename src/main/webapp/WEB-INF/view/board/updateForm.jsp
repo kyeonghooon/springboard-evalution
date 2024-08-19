@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
 <!-- start of context.jsp(xxx.jsp) -->
-<div class="col-sm-9">
+<div class="d-flex flex-column form--container">
 	<h2>글수정</h2>
 	<br>
 	<form action="/board/${board.id}/update" method="post">
