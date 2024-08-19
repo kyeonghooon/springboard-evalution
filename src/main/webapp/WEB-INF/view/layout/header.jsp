@@ -15,16 +15,18 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<div class="m-flex-container">
-		<div class="m--container">
-
-			<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-				<a class="navbar-brand" href="/">홈</a>
-				<a class="navbar-brand" href="/board/saveForm">글쓰기</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-			</nav>
-
-			<div class="container" style="margin-top: 30px">
-				<div class="row">
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Metacoding</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/board/saveForm">글쓰기</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>

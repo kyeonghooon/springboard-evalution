@@ -28,13 +28,11 @@
 }
 </style>
 <!-- start of context.jsp(xxx.jsp) -->
-<div class="col-sm-16 d-flex flex-column align-items-center">
-	<h2>글목록</h2>
-	<br>
+<div class="container p-5">
 	<c:choose>
 		<c:when test="${boardList != null}">
 			<%-- 계좌 존재 : html 주석을 사용하면 오류 발생 (jstl 태그 안에서) --%>
-			<table class="table table-striped table--custom">
+			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th>번호</th>
@@ -52,10 +50,14 @@
 							<td>${board.content}</td>
 							<td>${board.author}</td>
 							<td>
-								<form action="/board/${board.id}/delete" class="d-inline" method="post">
-									<button type="submit" class="btn btn-danger">삭제</button>
-								</form>
-								<a href="/board/${board.id}/updateForm" class="btn btn-warning">수정</a>
+								<div class="d-flex">
+									<form action="/board/${board.id}/delete" method="post">
+										<button type="submit" class="btn btn-danger">삭제</button>
+									</form>
+									<form action="/board/${board.id}/updateForm" method="get">
+										<button type="submit" class="btn btn-warning">수정</button>
+									</form>
+								</div>
 							</td>
 						</tr>
 					</c:forEach>
@@ -82,9 +84,5 @@
 	</c:choose>
 
 </div>
-<!-- end of col-sm-8 -->
-</div>
-</div>
 <!-- end of context.jsp(xxx.jsp) -->
-
-</div>
+<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
