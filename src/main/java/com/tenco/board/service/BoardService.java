@@ -26,10 +26,11 @@ public class BoardService {
 	 * 
 	 * @return
 	 */
-	public List<Board> readAll() {
+	public List<Board> readAll(int page, int size) {
 		List<Board> boardListEntity = null;
 		try {
-			boardListEntity = boardRepository.readAll();
+			int offset = page * size;
+			boardListEntity = boardRepository.readAll(offset, size);
 		} catch (DataAccessException e) {
 			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
@@ -84,6 +85,11 @@ public class BoardService {
 		return boardEntity;
 	}
 	
+	/**
+	 * 게시글 수정
+	 * @param dto
+	 * @param id
+	 */
 	public void update(BoardDTO dto, int id) {
 		int result = 0;
 		try {
@@ -94,5 +100,11 @@ public class BoardService {
 		if (result == 0) {
 			throw new DataDeliveryException(Define.FAIL_TO_CREATE_BOARD, HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	public int countAll() {
+		int result = 0;
+		result = boardRepository.countAll();
+		return result;
 	}
 }

@@ -18,16 +18,16 @@
 		delete from board where id = #{id}
 	</delete>
 
-	<select
-		id="readById"
-		resultType="com.tenco.board.repository.model.Board">
+	<select id="readById" resultType="com.tenco.board.repository.model.Board">
 		select * from board where id = #{id}
 	</select>
-	
-	<select
-		id="readAll"
-		resultType="com.tenco.board.repository.model.Board">
-		select * from board order by id desc
+
+	<select id="readAll" resultType="com.tenco.board.repository.model.Board">
+		select * from board order by id desc limit #{limit} offset #{offset}
+	</select>
+
+	<select id="countAll" resultType="int">
+		select count(*) from board
 	</select>
 
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tenco.board.dto.BoardDTO;
 import com.tenco.board.handler.exception.DataDeliveryException;
@@ -22,78 +23,93 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
 
 	private final BoardService boardService;
-	
-    @GetMapping("/")
-    public String index(Model model) {
-    	List<Board> boardList = boardService.readAll();
-    	model.addAttribute("boardList", boardList);
-        return "index";
-    }
 
-    @GetMapping("/board/saveForm")
-    public String saveForm() {
-        return "board/saveForm";
-    }
+	@GetMapping("/")
+	public String index(Model model,//
+			@RequestParam(defaultValue = "0", name = "page") int page,//
+			@RequestParam(defaultValue = "5", name = "size") int size) {
+		int totalBoards = boardService.countAll();
+		int totalPage = totalBoards / size;
+		if (totalBoards % size == 0) {
+			totalPage--;
+		}
+		int pageBlock = 5;
+		int blockCount = (page / pageBlock) * pageBlock;
+		int startPage = blockCount;
+		int endPage = (blockCount + pageBlock - 1) > totalPage ? totalPage : (blockCount + pageBlock - 1);
+		List<Board> boardList = boardService.readAll(page, size);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("boardList", boardList);
+		return "index";
+	}
 
-    @GetMapping("/board/{id}/updateForm")
-    public String updateForm(@PathVariable(name="id") Integer id, Model model) {
-    	Board board = boardService.readById(id);
-    	model.addAttribute("board", board);
-        return "board/updateForm";
-    }
+	@GetMapping("/board/saveForm")
+	public String saveForm() {
+		return "board/saveForm";
+	}
 
-    @PostMapping("/board/save")
-    public String save(BoardDTO dto){
-    	// 유효성 검사
-    	if (dto.getTitle() == null || dto.getTitle().trim().isEmpty()) {
-			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
-		}
-    	if (dto.getContent() == null || dto.getContent().trim().isEmpty()) {
-			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
-		}
-    	if (dto.getAuthor() == null || dto.getAuthor().trim().isEmpty()) {
-			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
-		}
-    	if (dto.getTitle().length() > Define.MAX_TITLE) {
-    		throw new DataDeliveryException(Define.OVER_OF_TITLE_LENGTH, HttpStatus.BAD_REQUEST);
-    	}
-    	if (dto.getContent().length() > Define.MAX_CONTENT) {
-    		throw new DataDeliveryException(Define.OVER_OF_CONTENT_LENGTH, HttpStatus.BAD_REQUEST);
-    	}
-    	if (dto.getAuthor().length() > Define.MAX_AUTHOR) {
-    		throw new DataDeliveryException(Define.OVER_OF_AUTHOR_LENGTH, HttpStatus.BAD_REQUEST);
-    	}
-    	boardService.create(dto);
-        return "redirect:/";
-    }
+	@GetMapping("/board/{id}/updateForm")
+	public String updateForm(@PathVariable(name = "id") Integer id, Model model) {
+		Board board = boardService.readById(id);
+		model.addAttribute("board", board);
+		return "board/updateForm";
+	}
 
-    @PostMapping("/board/{id}/update")
-    public String update(BoardDTO dto, @PathVariable(name="id") Integer id){
-    	if (dto.getTitle() == null || dto.getTitle().trim().isEmpty()) {
+	@PostMapping("/board/save")
+	public String save(BoardDTO dto) {
+		// 유효성 검사
+		if (dto.getTitle() == null || dto.getTitle().trim().isEmpty()) {
 			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
 		}
-    	if (dto.getContent() == null || dto.getContent().trim().isEmpty()) {
+		if (dto.getContent() == null || dto.getContent().trim().isEmpty()) {
 			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
 		}
-    	if (dto.getAuthor() == null || dto.getAuthor().trim().isEmpty()) {
+		if (dto.getAuthor() == null || dto.getAuthor().trim().isEmpty()) {
 			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
 		}
-    	if (dto.getTitle().length() > Define.MAX_TITLE) {
-    		throw new DataDeliveryException(Define.OVER_OF_TITLE_LENGTH, HttpStatus.BAD_REQUEST);
-    	}
-    	if (dto.getContent().length() > Define.MAX_CONTENT) {
-    		throw new DataDeliveryException(Define.OVER_OF_CONTENT_LENGTH, HttpStatus.BAD_REQUEST);
-    	}
-    	if (dto.getAuthor().length() > Define.MAX_AUTHOR) {
-    		throw new DataDeliveryException(Define.OVER_OF_AUTHOR_LENGTH, HttpStatus.BAD_REQUEST);
-    	}
-    	boardService.update(dto, id);
-        return "redirect:/";
-    }
+		if (dto.getTitle().length() > Define.MAX_TITLE) {
+			throw new DataDeliveryException(Define.OVER_OF_TITLE_LENGTH, HttpStatus.BAD_REQUEST);
+		}
+		if (dto.getContent().length() > Define.MAX_CONTENT) {
+			throw new DataDeliveryException(Define.OVER_OF_CONTENT_LENGTH, HttpStatus.BAD_REQUEST);
+		}
+		if (dto.getAuthor().length() > Define.MAX_AUTHOR) {
+			throw new DataDeliveryException(Define.OVER_OF_AUTHOR_LENGTH, HttpStatus.BAD_REQUEST);
+		}
+		boardService.create(dto);
+		return "redirect:/";
+	}
 
-    @PostMapping("/board/{id}/delete")
-    public String delete(@PathVariable(name="id") Integer id){
-    	boardService.deleteById(id);
-        return "redirect:/";
-    }
+	@PostMapping("/board/{id}/update")
+	public String update(BoardDTO dto, @PathVariable(name = "id") Integer id) {
+		if (dto.getTitle() == null || dto.getTitle().trim().isEmpty()) {
+			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
+		}
+		if (dto.getContent() == null || dto.getContent().trim().isEmpty()) {
+			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
+		}
+		if (dto.getAuthor() == null || dto.getAuthor().trim().isEmpty()) {
+			throw new DataDeliveryException(Define.ENTER_TITLE, HttpStatus.BAD_REQUEST);
+		}
+		if (dto.getTitle().length() > Define.MAX_TITLE) {
+			throw new DataDeliveryException(Define.OVER_OF_TITLE_LENGTH, HttpStatus.BAD_REQUEST);
+		}
+		if (dto.getContent().length() > Define.MAX_CONTENT) {
+			throw new DataDeliveryException(Define.OVER_OF_CONTENT_LENGTH, HttpStatus.BAD_REQUEST);
+		}
+		if (dto.getAuthor().length() > Define.MAX_AUTHOR) {
+			throw new DataDeliveryException(Define.OVER_OF_AUTHOR_LENGTH, HttpStatus.BAD_REQUEST);
+		}
+		boardService.update(dto, id);
+		return "redirect:/";
+	}
+
+	@PostMapping("/board/{id}/delete")
+	public String delete(@PathVariable(name = "id") Integer id) {
+		boardService.deleteById(id);
+		return "redirect:/";
+	}
 }

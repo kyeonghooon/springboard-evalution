@@ -36,6 +36,18 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<br>
+		<div class="d-flex justify-content-center">
+			<ul class="pagination">
+				<li class="page-item ${currentPage == 0 ? 'disabled' : ''}"><a class="page-link" href="?&page=0">First</a></li>
+				<li class="page-item ${currentPage == 0 ? 'disabled' : ''}"><a class="page-link" href="?&page=${currentPage - 1}">Previous</a></li>
+				<c:forEach begin="${startPage}" end="${endPage}" var="page">
+					<li class="page-item ${page == currentPage ? 'active' : ''}"><a class="page-link" href="?&page=${page}">${page}</a></li>
+				</c:forEach>
+				<li class="page-item ${currentPage == totalPage ? 'disabled' : ''}"><a class="page-link" href="?&page=${currentPage + 1}">Next</a></li>
+				<li class="page-item ${currentPage == totalPage ? 'disabled' : ''}"><a class="page-link" href="?&page=${totalPage}">End</a></li>
+			</ul>
+		</div>
 		</c:when>
 		<c:otherwise>
 			<div class="jumbotron display-4">
