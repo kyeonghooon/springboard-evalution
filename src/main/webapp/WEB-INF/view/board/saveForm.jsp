@@ -3,9 +3,9 @@
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
 <!-- start of context.jsp(xxx.jsp) -->
-<div class="col-sm-8">
+<div class="col-sm-16">
 	<h2>글쓰기</h2>
-	
+	<br>
 	<form action="/board/save" method="post">
 		<div class="form-group">
 			<label for="title">title:</label> <input type="text" class="form-control" placeholder="Enter title" id="title" name="title" value="임시제목">
